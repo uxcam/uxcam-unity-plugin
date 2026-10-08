@@ -1,0 +1,56 @@
+name: Release
+
+# Releases the package.json version when it has a CHANGELOG entry and no tag yet, i.e. when a release PR is merged.
+on:
+  push:
+    branches: [main]
+    paths:
+      - com.uxcam.unity/package.json
+      - com.uxcam.unity/CHANGELOG.md
+
+permissions:
+  contents: write
+
+concurrency: release
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      CHANGELOG: com.uxcam.unity/CHANGELOG.md
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Find the version to release
+        id: version
+        run: |
+          version="$(python3 -c 'import json; print(json.load(open("com.uxcam.unity/package.json"))["version"])')"
+
+          awk -v heading="## [$version] - " '
+            index($0, heading) == 1 { found = 1; next }
+            found && /^## \[/ { exit }
+            found { print }
+          ' "$CHANGELOG" | sed '/./,$!d' > "$RUNNER_TEMP/release-notes.md"
+
+          if ! grep -q '[^[:space:]]' "$RUNNER_TEMP/release-notes.md"; then
+            echo "Nothing to release: CHANGELOG.md has no entry for $version."
+            exit 0
+          fi
+          if git ls-remote --exit-code --tags origin "refs/tags/v$version" > /dev/null; then
+            echo "Nothing to release: v$version is already released."
+            exit 0
+          fi
+          grep -qF "PluginVersion = \"$version\"" com.uxcam.unity/Runtime/UXCam.cs ||
+            { echo "UXCam.PluginVersion in Runtime/UXCam.cs doesn't match package.json ($version)." >&2; exit 1; }
+
+          echo "Releasing v$version"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Create the release
+        if: steps.version.outputs.version != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          gh release create "v$VERSION" --target "$GITHUB_SHA" --title "v$VERSION" --notes-file "$RUNNER_TEMP/release-notes.md"
+          git push origin --delete "release/v$VERSION" 2> /dev/null || true

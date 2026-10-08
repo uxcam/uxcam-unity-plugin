@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dependencies>
+  <androidPackages>
+    <androidPackage spec="com.uxcam:uxcam:3.11.2" />
+    <!-- For @Keep on the Java bridge. -->
+    <androidPackage spec="androidx.annotation:annotation:1.2.0" />
+  </androidPackages>
+
+  <remoteSwiftPackage url="https://github.com/uxcam/uxcam-ios.git" version="3.11.1">
+    <swiftPackage name="UXCam" />
+  </remoteSwiftPackage>
+</dependencies>

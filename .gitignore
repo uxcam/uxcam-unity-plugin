@@ -1,0 +1,36 @@
+# Unity sample project
+unity-sample/[Ll]ibrary/
+unity-sample/[Tt]emp/
+unity-sample/[Oo]bj/
+unity-sample/[Ll]ogs/
+unity-sample/[Bb]uild/
+unity-sample/[Bb]uilds/
+unity-sample/[Uu]ser[Ss]ettings/
+unity-sample/MemoryCaptures/
+unity-sample/Assets/Samples/
+unity-sample/Assets/Scenes/
+unity-sample/Assets/Plugins/
+unity-sample/Assets/ExternalDependencyManager/
+unity-sample/Assets/Resources/
+unity-sample/Packages/packages-lock.json
+*.csproj
+*.sln
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# IDEs and OS
+.idea/
+.vs/
+.vscode/
+*.swp
+.DS_Store
+
+# CI artifacts
+/build/
+/artifacts/
+release-notes.md

@@ -1,0 +1,9 @@
+* text=auto eol=lf
+*.meta text eol=lf
+*.asset text eol=lf merge=unityyamlmerge
+*.unity text eol=lf merge=unityyamlmerge
+*.prefab text eol=lf merge=unityyamlmerge
+*.aar binary
+*.jar binary
+*.png binary
+*.zip binary

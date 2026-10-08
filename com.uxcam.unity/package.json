@@ -1,0 +1,34 @@
+{
+  "name": "com.uxcam.unity",
+  "version": "1.0.0",
+  "displayName": "UXCam",
+  "description": "Session replay, heatmaps and product analytics for Unity games and apps on iOS and Android. Wraps the native UXCam iOS and Android SDKs, records Unity scenes as screens, and hides sensitive UI with the UXCam Occlude component.",
+  "unity": "2022.3",
+  "author": {
+    "name": "UXCam",
+    "url": "https://uxcam.com"
+  },
+  "documentationUrl": "https://developer.uxcam.com",
+  "license": "BSD-3-Clause",
+  "keywords": [
+    "uxcam",
+    "analytics",
+    "session replay",
+    "session recording",
+    "heatmaps",
+    "product analytics",
+    "ios",
+    "android"
+  ],
+  "dependencies": {
+    "com.unity.external-dependency-manager": "2.1.0",
+    "com.unity.modules.androidjni": "1.0.0"
+  },
+  "samples": [
+    {
+      "displayName": "Basic Integration",
+      "description": "Starts UXCam from code, logs events and user properties, and hides a password field with UXCam Occlude.",
+      "path": "Samples~/BasicIntegration"
+    }
+  ]
+}
